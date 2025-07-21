@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SentinelWall Logs</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="glitch">📡 Attack Log Viewer</h1>
+        <table border="1" style="width: 90%; margin: auto; color: #00ffcc; border-color: #00ffcc;">
+            <tr>
+                <th>Time</th>
+                <th>IP</th>
+                <th>Raw Input</th>
+                <th>Decoded</th>
+                <th>Verdict</th>
+            </tr>
+            {% for log in logs %}
+            <tr>
+                <td>{{ log[1] }}</td>
+                <td>{{ log[5] }}</td>
+                <td>{{ log[2] }}</td>
+                <td>{{ log[3] }}</td>
+                <td style="color: {{ 'red' if log[4] == 'BLOCKED' else '#00ff88' }} ; " >{{ log[4] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br><a href="/">Back to Home</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SCAN RESULT</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="glitch">TARGET SCAN COMPLETE</h1>
+        <p><strong>Raw Input:</strong> {{ input }}</p>
+        <p><strong>Decoded:</strong> {{ decoded }}</p>
+        <h2 class="{{ 'verdict-blocked' if verdict.startswith('BLOCKED') else 'verdict-clean' }}">
+    Verdict: {{ verdict }}
+</h2>
+
+{% if confidence %}
+    <p style="color: gray;">ML Confidence: {{ confidence }}%</p>
+{% endif %}
+
+        {% if verdict == 'BLOCKED' %}
+    <div style="color:red; font-weight:bold;"> Input Blocked by SentinelWall</div>
+    {% endif %}
+
+        <a href="/">Back to Scanner</a>
+    </div>
+</body>
+</html>

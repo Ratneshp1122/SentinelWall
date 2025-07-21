@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🛡️ ThreatForge Report</title>
+    <style>
+        body { background: #0f0f0f; color: #00ff88; font-family: monospace; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #00ff88; padding: 8px; text-align: left; }
+        th { background: #111111; }
+        .blocked { color: red; }
+        .clean { color: #00ff88; }
+        .repeat { color: orange; }
+        .summary { margin-top: 20px; background: #111; padding: 10px; border: 1px solid #00ff88; }
+    </style>
+</head>
+<body>
+    <h1>🧠 ThreatForge - WAF Report</h1>
+    <div class="summary">
+        <p>Total Inputs: {{ total }}</p>
+        <p>Blocked: {{ blocked }} | Clean: {{ clean }}</p>
+        <p>Top IP: {{ top_ip }}</p>
+        <p>Most Frequent Payload Hash: {{ top_hash }}</p>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th><th>IP</th><th>Input</th><th>Decoded</th><th>Verdict</th><th>Hash</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+            <tr>
+                <td>{{ log[1] }}</td>
+                <td>{{ log[5] }}</td>
+                <td>{{ log[2] }}</td>
+                <td>{{ log[3] }}</td>
+                <td class="{{ 'blocked' if 'BLOCKED' in log[4] else 'clean' }}">{{ log[4] }}</td>
+                <td>{{ log[6][:10] }}...</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
